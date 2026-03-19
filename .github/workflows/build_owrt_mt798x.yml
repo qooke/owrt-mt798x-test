@@ -24,7 +24,7 @@ on:
         description: 'Target'
         required: true
         type: string
-        default: '["ath79/generic","ath79/nand","ipq40xx/generic","mediatek/filogic","ramips/mt7620","ramips/mt7621","ramips/mt76x8"]'
+        default: '["ath79/generic","ath79/nand","ipq40xx/generic","mediatek/mt7981","ramips/mt7620","ramips/mt7621","ramips/mt76x8"]'
       extra_packages:
         description: 'Include Extra Packages'
         required: true
