@@ -24,8 +24,7 @@ on:
         description: 'Target'
         required: true
         type: string
-        #default: '["ath79/generic","ath79/nand","ipq40xx/generic","mediatek/mt7981","ramips/mt7620","ramips/mt7621","ramips/mt76x8"]'
-        default: '["ramips/mt7621","mediatek/mt7981","mediatek/mt7981-ax3000","mediatek/mt7986-ax4200","mediatek/mt7986-ax6000","mediatek/mt7986-ax6000-256m","mediatek/mt7986-ax7800"]'        
+        default: '["ramips/mt7621","mediatek/mt7981","mediatek/mt7981-ax3000","mediatek/mt7986-ax4200","mediatek/mt7986-ax6000","mediatek/mt7986-ax6000-256m","mediatek/mt7986-ax7800"]'
       extra_packages:
         description: 'Include Extra Packages'
         required: true
@@ -80,7 +79,6 @@ jobs:
           TARGET=$(echo ${{ matrix.target }} | cut -d "/" -f 1)
           RAW_SUBTARGET=$(echo ${{ matrix.target }} | cut -d "/" -f 2)
           SUBTARGET=$(echo $RAW_SUBTARGET | cut -d "-" -f 1)
-          
           echo "TARGET=$TARGET" >> "$GITHUB_ENV"
           echo "SUBTARGET=$SUBTARGET" >> "$GITHUB_ENV"
           echo "DEVICE_SUFFIX=$RAW_SUBTARGET" >> "$GITHUB_ENV"
@@ -158,28 +156,28 @@ jobs:
       - name: Upload logs
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ env.TARGET }}-${{ env.SUBTARGET }}-logs
-          path: "openwrt/logs"
+          name: ${{ env.TARGET }}-${{ env.DEVICE_SUFFIX }}-logs
+          path: openwrt/logs
 
       - name: Upload target binaries
         if: inputs.build_type == 'Multi targets'
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ env.TARGET }}_${{ env.SUBTARGET }}
+          name: ${{ env.TARGET }}_${{ env.DEVICE_SUFFIX }}
           path: openwrt/bin/targets/${{ env.TARGET }}/${{ env.SUBTARGET }}/${{ env.TARGET }}_${{ env.SUBTARGET }}.tar.xz
 
       - name: Upload target initramfs binaries
         if: inputs.build_type == 'Multi targets'
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ env.TARGET }}_${{ env.SUBTARGET }}-initramfs
+          name: ${{ env.TARGET }}_${{ env.DEVICE_SUFFIX }}-initramfs
           path: openwrt/bin/targets/${{ env.TARGET }}/${{ env.SUBTARGET }}/${{ env.TARGET }}_${{ env.SUBTARGET }}-initramfs.tar.xz
 
       - name: Upload device binaries
         if: inputs.build_type == 'Multi devices'
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ env.TARGET }}_${{ env.SUBTARGET }}
+          name: ${{ env.TARGET }}_${{ env.DEVICE_SUFFIX }}
           path: |
             openwrt/bin/targets/**/**/*
             !openwrt/bin/targets/**/**/packages
