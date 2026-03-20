@@ -78,16 +78,10 @@ jobs:
       - name: Initialization environment
         run: |
           TARGET=$(echo ${{ matrix.target }} | cut -d "/" -f 1)
-          FULL=$(echo ${{ matrix.target }} | cut -d "/" -f 2)
-
-          SUBTARGET=$(echo $FULL | cut -d "-" -f 1)
-
-          DEVICE=$(echo $FULL | cut -d "-" -f 2-)
+          SUBTARGET=$(echo ${{ matrix.target }} | cut -d "/" -f 2)
 
           echo "TARGET=$TARGET" >> "$GITHUB_ENV"
           echo "SUBTARGET=$SUBTARGET" >> "$GITHUB_ENV"
-          echo "DEVICE=$DEVICE" >> "$GITHUB_ENV"
-          echo "FULL=$FULL" >> "$GITHUB_ENV"
 
       - name: Install host tools
         run: |
