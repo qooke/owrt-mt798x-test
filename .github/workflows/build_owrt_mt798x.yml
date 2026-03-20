@@ -25,7 +25,7 @@ on:
         required: true
         type: string
         #default: '["ath79/generic","ath79/nand","ipq40xx/generic","mediatek/mt7981","ramips/mt7620","ramips/mt7621","ramips/mt76x8"]'
-        default: '["ramips/mt7621","mediatek/mt7981","mediatek/mt7981-ax3000","mediatek/mt7986-ax4200","mediatek/mt7986-ax6000","mediatek/mt7986-ax6000-256m","mediatek/mt7986-ax7800"]'        
+        default: '["ramips/mt7621","mediatek/mt7981","mediatek/mt7981-ax3000","mediatek/mt7986-ax4200","mediatek/mt7986-ax6000","mediatek/mt7986-ax6000-256m","mediatek/mt7986-ax7800"]'
       extra_packages:
         description: 'Include Extra Packages'
         required: true
@@ -78,9 +78,16 @@ jobs:
       - name: Initialization environment
         run: |
           TARGET=$(echo ${{ matrix.target }} | cut -d "/" -f 1)
-          SUBTARGET=$(echo ${{ matrix.target }} | cut -d "/" -f 2)
+          FULL=$(echo ${{ matrix.target }} | cut -d "/" -f 2)
+
+          SUBTARGET=$(echo $FULL | cut -d "-" -f 1)
+
+          DEVICE=$(echo $FULL | cut -d "-" -f 2-)
+
           echo "TARGET=$TARGET" >> "$GITHUB_ENV"
           echo "SUBTARGET=$SUBTARGET" >> "$GITHUB_ENV"
+          echo "DEVICE=$DEVICE" >> "$GITHUB_ENV"
+          echo "FULL=$FULL" >> "$GITHUB_ENV"
 
       - name: Install host tools
         run: |
