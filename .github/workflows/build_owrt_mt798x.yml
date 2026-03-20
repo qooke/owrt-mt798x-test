@@ -24,8 +24,7 @@ on:
         description: 'Target'
         required: true
         type: string
-        #default: '["ath79/generic","ath79/nand","ipq40xx/generic","mediatek/mt7981","ramips/mt7620","ramips/mt7621","ramips/mt76x8"]'
-        default: '["ramips/mt7621","mediatek/mt7981","mediatek/mt7981-ax3000","mediatek/mt7986-ax4200","mediatek/mt7986-ax6000","mediatek/mt7986-ax6000-256m","mediatek/mt7986-ax7800"]'
+        default: '["ramips/mt7621","mediatek/mt7981"]'
       extra_packages:
         description: 'Include Extra Packages'
         required: true
@@ -124,7 +123,6 @@ jobs:
         working-directory: openwrt
         run: |
           make defconfig
-          ./scripts/diffconfig.sh
 
       - name: Prepare basic tools
         working-directory: openwrt
