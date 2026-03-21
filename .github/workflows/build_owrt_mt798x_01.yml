@@ -24,7 +24,8 @@ on:
         description: 'Target'
         required: true
         type: string
-        default: '["ramips/mt7621","mediatek/mt7981","mediatek/mt7981-ax3000","mediatek/mt7986-ax4200","mediatek/mt7986-ax6000","mediatek/mt7986-ax6000-256m","mediatek/mt7986-ax7800"]'
+        #default: '["ramips/mt7621","mediatek/mt7981","mediatek/mt7981-ax3000","mediatek/mt7986-ax4200","mediatek/mt7986-ax6000","mediatek/mt7986-ax6000-256m","mediatek/mt7986-ax7800"]'
+        default: '["ramips/mt7621","mediatek/mt7981","mediatek/mt7981-ax3000","mediatek/mt7986-ax6000","mediatek/mt7986-ax6000-256m","mediatek/mt7986-ax7800"]'        
       extra_packages:
         description: 'Include Extra Packages'
         required: true
